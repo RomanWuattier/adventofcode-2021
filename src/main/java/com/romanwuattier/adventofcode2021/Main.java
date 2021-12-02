@@ -23,8 +23,8 @@ public class Main {
         ? List.of()
         : new BufferedReader(new InputStreamReader(inStream))
             .lines()
-            .filter(l -> l.endsWith(".class"))
             .map(name -> getClass(name, pkg))
+            .filter(c -> !c.isMemberClass() && !c.isAnonymousClass() && !c.isLocalClass())
             .collect(Collectors.toList());
   }
 
