@@ -27,4 +27,20 @@ interface FileOperations {
       throw new UncheckedIOException("Resource doesn't exist", e);
     }
   }
+
+  default String readDayAsString(int day) {
+    return getFileAsString(
+        new File(
+            Objects.requireNonNull(
+                    FileOperations.class.getClassLoader().getResource("day" + day + ".txt"))
+                .getFile()));
+  }
+
+  default String getFileAsString(File file) {
+    try {
+      return Files.readString(file.toPath(), StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 }
